@@ -5,23 +5,32 @@
 }
 
 body {
+  
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: hidden;
+
     font-family: "Roboto Slab", serif;
     background-color: white;
-    overflow-x: hidden;
 }
 
 .main-container {
     display: flex;
     height: 100vh;
     width: 100vw;
-    flex-direction: column;
 }
 
 .sidebar {
+    margin: 10px;
     width: 80px;
-    background-color: #000;
-    padding: 10px;
-    flex-shrink: 0;
+    height: 90vh;
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    border-radius: 15px;
 }
 
 .logo {
@@ -43,24 +52,27 @@ body {
 }
 
 .content {
+    margin-left: 30px;
     display: flex;
-    flex-direction: column;
     flex-grow: 1;
     padding: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .map-container {
+     flex-grow: 0.1; 
     display: flex;
     flex-direction: column;
-    padding: 20px;
     border: 2px solid black;
+    padding: 20px;
     border-radius: 15px;
     align-items: center;
 }
 
 .map {
-    width: 100%;
-    height: 250px;
+    width: 760px;
+    height: 500px;
     background-color: #41611b;
     border-radius: 10px;
     position: relative;
@@ -68,11 +80,12 @@ body {
 }
 
 .field-label {
+    flex-grow: 1;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
+    font-size: 24px;
     font-weight: bold;
 }
 
@@ -80,49 +93,49 @@ body {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    justify-content: space-around;
-    width: 100%;
 }
 
 .stat {
-    width: 70px;
-    height: 70px;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
     background-color: #b0ce8d;
     padding: 10px;
     text-align: center;
     border-radius: 10px;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s;
 }
 
 .stat:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .right-panel {
-    width: 100%;
+    flex-grow: 0.5;
+    width: 200px;
     background-color: white;
     padding: 10px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 10px;
 }
 
 .header {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+    display: flex;
 }
 
 .grid {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    justify-items: center;
-    margin-top: 20px;
+    gap: 30px;
 }
 
 .grid div {
@@ -138,13 +151,31 @@ body {
     transition: background-color 0.5s, box-shadow 0.5s;
 }
 
+
+.grid div.good {
+    background-color: green;
+    color: white;
+}
+
+.grid div.bad {
+    background-color: red;
+    color: white;
+}
+
+.grid div:hover {
+    box-shadow: 0 0 10px #D3D3D3;
+}
+
 #mic {
-    margin-top: 20px;
+    position: relative;
+    top: 80px;
+    left: 400px;
     background-color: #ffdfab;
+    display: inline-block;
     padding: 10px;
     border-radius: 20px;
-    border: none;
-    cursor: pointer;
+    border: none; 
+    cursor: pointer; 
 }
 
 #mic:hover {
@@ -152,69 +183,16 @@ body {
     opacity: 0.9;
 }
 
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        height: 50px;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 0;
-    }
-
-    .content {
-        padding: 10px;
-    }
-
-    .map {
-        width: 100%;
-        height: 150px;
-    }
-
-    .field-label {
-        font-size: 14px;
-    }
-
-    .stat {
-        width: 60px;
-        height: 60px;
-    }
-
-    .right-panel {
-        margin-top: 10px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 5px;
-    }
-
-    #mic {
-        margin-left: 0;
-        margin-top: 10px;
-    }
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-@media (max-width: 480px) {
-    .map {
-        height: 120px;
-    }
+.stat :nth-child(1) {
+    font-size: 12px;
+}
 
-    .stat {
-        width: 50px;
-        height: 50px;
-    }
-
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
-    }
-
-    #mic {
-        width: 40px;    
-        height: 40px;
-    }
+.stat .temp {
+    font-size: 16px;
 }
