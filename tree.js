@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= treeCount; i++) {
         const plantItem = document.createElement('div');
         plantItem.classList.add('plant-item');
-        plantItem.innerText = i; // Show tree number
+        plantItem.innerText = `Tree ${i}`; // Show tree number
         grid.appendChild(plantItem);
     }
 
