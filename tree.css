@@ -21,7 +21,6 @@ body {
 }
 
 .sidebar {
-    display: flex;
     margin-top: 20px;
     margin-inline-start: 20px;
     justify-content: space-around;
