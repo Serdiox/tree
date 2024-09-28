@@ -1,37 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const treeCount = 24; 
-    const treeGrid = document.getElementById('tree-grid');
+    const treeCount = 36; // Adjusted to match plant items
     const goodCountElem = document.getElementById('good-count');
     const badCountElem = document.getElementById('bad-count');
     const startSpeechBtn = document.getElementById('mic');
-    
+
     let goodCount = 0;
     let badCount = 0;
 
-    let totalPlant = document.getElementById('total-plant');
-    let soilTemp = document.getElementById('soil-temp');
-    let humidity = document.getElementById('humidity');
-    let plantCondition = document.getElementById('plant-condition');
-
-    totalPlant.innerText = '24°';
-    soilTemp.innerText = '24°';
-    humidity.innerText = '24°';
-    plantCondition.innerText = 'Good';
-    
-    const grid = document.querySelector('.grid');
-    let cnt = 1;
-    for (let i = 0; i < 36; i++) {
+    // Update the plant grid
+    const grid = document.getElementById('tree-grid');
+    for (let i = 1; i <= treeCount; i++) {
         const plantItem = document.createElement('div');
         plantItem.classList.add('plant-item');
-        plantItem.innerText = cnt++;
+        plantItem.innerText = i; // Show tree number
         grid.appendChild(plantItem);
     }
 
+    // Check for speech recognition support
     if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
         alert('Your browser does not support speech recognition. Please use Chrome or Edge.');
         return;
     }
 
+    // Start speech recognition on button click
     startSpeechBtn.addEventListener('click', () => {
         console.log('Button clicked! Starting speech recognition...');
         startSpeechCommand();
@@ -53,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const words = transcript.split(" ");
             let plantNumber = null;
             let status = null;
-            
+
             words.forEach(word => {
                 if (word.match(/^\d+$/)) {
                     plantNumber = parseInt(word);
@@ -62,40 +53,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            if (plantNumber !== null && status !== null) {
-                const plantItem = document.querySelector(`.plant-item:nth-child(${plantNumber})`);
-                
-                if (plantItem) {
-                    plantItem.classList.remove('good', 'bad');
-
-                    if (status === 'good') {
-                        plantItem.classList.add('good');
-                        goodCount++;
-                        goodCountElem.innerText = goodCount;
-                    } else if (status === 'bad') {
-                        plantItem.classList.add('bad');
-                        badCount++;
-                        badCountElem.innerText = badCount;
-                    }
-                } else {
-                    alert('Invalid plant number');
+            if (plantNumber !== null && status !== null && plantNumber >= 1 && plantNumber <= treeCount) {
+                if (status === 'good') {
+                    goodCount++;
+                } else if (status === 'bad') {
+                    badCount++;
                 }
+                updatePlantCondition(plantNumber, status);
+                updateCounts();
             } else {
-                alert('Please say the plant number followed by "good" or "bad"');
+                alert('Please provide a valid input.');
             }
         };
 
         recognition.onerror = (event) => {
-            console.error('Speech recognition error', event.error);
-            if (event.error === 'not-allowed') {
-                alert('Microphone access was denied. Please check your settings.');
-            } else {
-                alert('An error occurred with speech recognition. Please try again.');
-            }
+            console.error('Speech recognition error:', event.error);
         };
 
         recognition.onend = () => {
             console.log('Speech recognition ended');
         };
+    }
+
+    function updatePlantCondition(plantNumber, status) {
+        const plantItems = document.querySelectorAll('.plant-item');
+        const plantItem = plantItems[plantNumber - 1]; // Adjust index for zero-based
+
+        if (status === 'good') {
+            plantItem.style.backgroundColor = 'lightgreen';
+            plantItem.textContent += ' - Good';
+        } else if (status === 'bad') {
+            plantItem.style.backgroundColor = 'lightcoral';
+            plantItem.textContent += ' - Bad';
+        }
+    }
+
+    function updateCounts() {
+        goodCountElem.textContent = goodCount;
+        badCountElem.textContent = badCount;
     }
 });
