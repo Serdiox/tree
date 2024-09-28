@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corn Field UI</title>
@@ -8,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
-    
 </head>
 <body>
     <div class="main-container">
@@ -30,7 +30,7 @@
                 <div class="plant-stats">
                     <div class="stat">
                         <span>Total Plant</span>
-                        <span id="total-plant" class="temp">24°</span>
+                        <span id="total-plant" class="temp">36</span>
                     </div>
                     <div class="stat">
                         <span>Soil temp</span>
@@ -44,10 +44,7 @@
                         <span>Plant Condition</span>
                         <span id="plant-condition" class="temp"></span>
                     </div>
-                    <div class="stat">
-                        <span>Total</span>
-                        <span id="total-plant" class="temp">36</span>
-                    </div>
+                
                     <div class="stat">
                         <span>Good</span>
                         <span id="good-count" class="temp">0</span>
@@ -57,21 +54,17 @@
                         <span id="bad-count" class="temp">0</span>
                     </div>
                 </div>
-                
-
             </div>
+            <button id="mic">
+                <img src="./microphone.png" alt="" width="30px" height="30px">
+            </button>
             <div class="right-panel">
                 <div class="header">Planted</div>
-                
                 <div class="grid">
-                    <!-- Plant items here -->
                 </div>
-                <button id="mic">
-                    <img src="./microphone.png" alt="" width="50px" height="50px">
-                </button>
+             
             </div>
         </div>
-        
     </div>
 
     <script src="./tree.js"></script>
