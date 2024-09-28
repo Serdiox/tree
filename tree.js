@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let goodCount = 0;
     let badCount = 0;
+    const plantStatus = Array(treeCount).fill(null); // Track the status of each plant
 
     // Update the plant grid
     const grid = document.getElementById('tree-grid');
@@ -53,16 +54,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
+            // Validate the plant number and status
             if (plantNumber !== null && status !== null && plantNumber >= 1 && plantNumber <= treeCount) {
-                if (status === 'good') {
-                    goodCount++;
-                } else if (status === 'bad') {
-                    badCount++;
+                // Check if the plant has already been marked
+                if (plantStatus[plantNumber - 1] === null) {
+                    if (status === 'good') {
+                        goodCount++;
+                        plantStatus[plantNumber - 1] = 'good'; // Mark plant as good
+                    } else if (status === 'bad') {
+                        badCount++;
+                        plantStatus[plantNumber - 1] = 'bad'; // Mark plant as bad
+                    }
+                    updatePlantCondition(plantNumber, status);
+                    updateCounts();
+                } else {
+                    alert(`Plant ${plantNumber} has already been marked as ${plantStatus[plantNumber - 1]}. Please choose another plant or status.`);
                 }
-                updatePlantCondition(plantNumber, status);
-                updateCounts();
             } else {
-                alert('Please provide a valid input.');
+                alert('Invalid input. Please say "good" or "bad" followed by a plant number between 1 and 36.');
             }
         };
 
